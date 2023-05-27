@@ -1,4 +1,7 @@
+
 #include <stdio.h>
+#include <iostream>
+using namespace std;
 
 #define MaxSize 10 // 定义最大长度
 
@@ -44,11 +47,25 @@ bool ListInsert(sql &L, int i, int e)
 	return true;
 }
 
+bool ListDelete(sql &L, int i, int &e)
+{							// 删除操作，删除表L中第i个位置的元素，并用e返回其值
+	if (i < 1 || i > L.len) // 判断i是否合法
+		return false;
+	e = L.data[i - 1]; // 将被删除的元素赋值给e
+	for (int j = i; j < L.len; j++)
+		L.data[j - 1] = L.data[j]; // 将第i个位置后的元素前移
+	L.len--;					   // 表长度减1
+	return true;
+}
 int main()
 {
 	sql L;
 	InitList(L);
-	ListInsert(L, 3, 3);
+	ListInsert(L, 1, 9);
+	ListInsert(L, 2, 8);
+	ListInsert(L, 3, 7);
+	int num;
+	ListDelete(L, 3, num);
 	//...
 	return 0;
 }
