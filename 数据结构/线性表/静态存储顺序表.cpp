@@ -16,12 +16,32 @@ void InitList(sql &L)
 	L.len = 0;
 }
 
-void ListInsert(sql &L, int i, int e)
-{									 // 插入操作
-	for (int v = L.len; v >= i; v--) // 从最后一位开始顺位后移
-		L.data[v] = L.data[v - 1];
+bool ListInsert(sql &L, int i, int e)
+{ // 插入操作
+	/*我原本是这么写的，理论上应该也可以实现该操作
+	if (i <= L.len && i > 0 && L.len < MaxSize)
+	{									 // 判断i是否合法
+		for (int v = L.len; v >= i; v--) // 从最后一位开始顺位后移
+			L.data[v] = L.data[v - 1];
+		L.data[i - 1] = e; // 在表L中第i个位置插入新元素e
+		L.len++;		   // 表长度加1
+		return true;
+	}
+	else
+	{
+		return false;
+	}*/
+
+	// 大佬是这么写的，盲猜这样写的好处是，可以将非法的情况返回不同的值，以供调用者判断
+	if (i < 1 || i > L.len + 1) // 判断i是否合法
+		return false;
+	if (L.len >= MaxSize) // 判断存储空间是否已满
+		return false;
+	for (int j = L.len; j >= i; j--) // 从最后一位开始顺位后移
+		L.data[j] = L.data[j - 1];
 	L.data[i - 1] = e; // 在表L中第i个位置插入新元素e
 	L.len++;		   // 表长度加1
+	return true;
 }
 
 int main()
