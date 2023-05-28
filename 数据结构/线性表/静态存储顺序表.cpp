@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <iostream>
 using namespace std;
@@ -73,6 +72,7 @@ bool GetElem(sql L, int i, int &e)
 }
 
 对应的，调用的时候判断一下返回值
+
 int e;
 if(GetElem(L, 2, e))
 	cout << e << endl;
