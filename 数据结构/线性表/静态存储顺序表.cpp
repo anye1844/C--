@@ -61,33 +61,56 @@ int GetElem(sql L, int i) // 按位查找操作，返回表L中第i个位置的元素
 {
 	return L.data[i - 1]; // 返回表L中第i个位置的元素
 }
-/*增强写法，newbing教的
-bool GetElem(sql L, int i, int &e)
+/* bool GetElem(sql L, int i, int &e) // 按位查找，增强写法，newbing教的
 {
 	if (i < 0 || i > L.len)
 		return false;
 	e = L.data[i - 1];
 	return true;
-}*/
-/*
-对应的，调用的时候判断一下返回值
+} */
 
-int e;
-if(GetElem(L, 2, e))
-	cout << e << endl;
-*/
+int LocateElem(sql L, int e) // 按值查找
+{
+	for (int i = 0; i < L.len; i++) // 遍历顺序表
+		if (L.data[i] == e)			// 若找到与e相等的元素
+			return i + 1;			// 返回其位序
+	return 0;						// 若遍历完顺序表仍未找到与e相等的元素，则返回0
+}
+/* bool LocateElem(sql L, int e, int &l) // 按值查找，增强写法，使用bool类型来判断一下是否找到了元素
+{
+	for (int i = 0; i < L.len; i++) // 遍历顺序表
+		if (L.data[i] == e)
+		{				 // 若找到与e相等的元素
+			l = i + 1;	 // 返回其位序
+			return true; // 找到了元素，返回true
+		}
+	return false; // 若遍历完顺序表仍未找到与e相等的元素，则返回false
+} */
 
 int main()
 {
 	sql L;
+
 	InitList(L);
+
 	ListInsert(L, 1, 9);
 	ListInsert(L, 2, 8);
 	ListInsert(L, 3, 7);
+
 	int num;
 	ListDelete(L, 3, num);
 	cout << num << endl;
+
 	cout << GetElem(L, 2) << endl;
+	/* int e;
+	if (GetElem(L, 2, e))
+		cout << e << endl; */
+		
+	cout << LocateElem(L, 8) << endl;
+	/* int l;
+	if (LocateElem(L, 8, l))
+		cout << l << endl; */
+
 	//...
 	return 0;
 }
