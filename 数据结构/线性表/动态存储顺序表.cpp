@@ -3,7 +3,6 @@
 using namespace std;
 
 #define InitSize 10 // 定义初始长度
-
 typedef struct
 {
 	int *data;	 // 指示动态分配数组的指针

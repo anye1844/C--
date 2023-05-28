@@ -3,12 +3,12 @@
 using namespace std;
 
 #define MaxSize 10 // 定义最大长度
-
 typedef struct
 {
-	int data[MaxSize]; // 以数组的形式静态存储
-	int len;		   // 顺序表当前的长度
-} sql;				   // 顺序表的类型定义
+	// ElemType data[MaxSize]; // 以数组的形式静态存储，这里以int为例
+	int data[MaxSize];
+	int len; // 顺序表当前的长度
+} sql;		 // 顺序表的类型定义
 
 void InitList(sql &L) // 初始化表
 {
@@ -61,16 +61,15 @@ int GetElem(sql L, int i) // 按位查找操作，返回表L中第i个位置的元素
 {
 	return L.data[i - 1]; // 返回表L中第i个位置的元素
 }
-
-/*增强扩展，newbing教的
+/*增强写法，newbing教的
 bool GetElem(sql L, int i, int &e)
 {
 	if (i < 0 || i > L.len)
 		return false;
 	e = L.data[i - 1];
 	return true;
-}
-
+}*/
+/*
 对应的，调用的时候判断一下返回值
 
 int e;
