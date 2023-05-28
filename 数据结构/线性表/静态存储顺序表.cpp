@@ -57,6 +57,28 @@ bool ListDelete(sql &L, int i, int &e)
 	L.len--;					   // 表长度减1
 	return true;
 }
+
+int GetElem(sql L, int i)
+{						  // 按位查找操作，返回表L中第i个位置的元素
+	return L.data[i - 1]; // 返回表L中第i个位置的元素
+}
+
+/*增强扩展，newbing教的
+bool GetElem(sql L, int i, int &e)
+{
+	if (i < 0 || i > L.len)
+		return false;
+	e = L.data[i - 1];
+	return true;
+}
+
+对应的，调用的时候判断一下返回值
+int e;
+if(GetElem(L, 2, e))
+	cout << e << endl;
+*/
+
+
 int main()
 {
 	sql L;
@@ -66,6 +88,8 @@ int main()
 	ListInsert(L, 3, 7);
 	int num;
 	ListDelete(L, 3, num);
+	cout << num << endl;
+	cout << GetElem(L, 2) << endl;
 	//...
 	return 0;
 }
