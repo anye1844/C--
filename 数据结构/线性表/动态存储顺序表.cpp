@@ -1,24 +1,65 @@
-#include<stdlib.h>
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
 
-#define InitSize 10		//å®šä¹‰åˆå§‹é•¿åº¦ 
+#define InitSize 10 // ¶¨Òå³õÊ¼³¤¶È
 
-typedef struct{	
-	int *data;			//æŒ‡ç¤ºåŠ¨æ€åˆ†é…æ•°ç»„çš„æŒ‡é’ˆ 
-	int MaxSize;		//é¡ºåºè¡¨çš„æœ€å¤§å®¹é‡ 
-	int len;			//é¡ºåºè¡¨å½“å‰çš„é•¿åº¦ 
-}sql;					//é¡ºåºè¡¨çš„ç±»å‹å®šä¹‰ 
+typedef struct
+{
+	int *data;	 // Ö¸Ê¾¶¯Ì¬·ÖÅäÊı×éµÄÖ¸Õë
+	int MaxSize; // Ë³Ğò±íµÄ×î´óÈİÁ¿
+	int len;	 // Ë³Ğò±íµ±Ç°µÄ³¤¶È
+} sql;			 // Ë³Ğò±íµÄÀàĞÍ¶¨Òå
 
-void InitList(sql &L){		//åˆå§‹åŒ–è¡¨ 
-	//ç”¨mallocå‡½æ•°ç”³è¯·ä¸€ç‰‡è¿ç»­çš„å­˜å‚¨ç©ºé—´
-	L.data = (int *)malloc(InitSize*sizeof(int));	//Cè¯­è¨€ä½¿ç”¨mallocå‡½æ•°ç”³è¯·ç©ºé—´
-	//L.data = new int[InitSize];		//C++ä½¿ç”¨newè¿ç®—ç¬¦ç”³è¯·ç©ºé—´
-	L.len=0;
-	L.MaxSize=InitSize;
-}	
+void InitList(sql &L) // ³õÊ¼»¯±í
+{
+	// ÓÃmallocº¯ÊıÉêÇëÒ»Æ¬Á¬ĞøµÄ´æ´¢¿Õ¼ä
+	L.data = (int *)malloc(InitSize * sizeof(int)); // CÓïÑÔÊ¹ÓÃmallocº¯ÊıÉêÇë¿Õ¼ä
+	// L.data = new int[InitSize];		//C++Ê¹ÓÃnewÔËËã·ûÉêÇë¿Õ¼ä
+	L.len = 0;
+	L.MaxSize = InitSize;
+}
 
-int main(){
+bool ListInsert(sql &L, int i, int e) // ²åÈë²Ù×÷
+{
+	if (i < 1 || i > L.len + 1) // ÅĞ¶ÏiµÄ·¶Î§ÊÇ·ñÓĞĞ§
+		return false;
+	if (L.len >= L.MaxSize) // µ±Ç°´æ´¢¿Õ¼äÒÑÂú£¬²»ÄÜ²åÈë
+		return false;
+	for (int j = L.len; j >= i; j--) // ½«µÚi¸öÔªËØ¼°Ö®ºóµÄÔªËØºóÒÆ
+		L.data[j] = L.data[j - 1];
+	L.data[i - 1] = e; // ÔÚÎ»ÖÃi´¦·ÅÈëe
+	L.len++;		   // ±í³¤Ôö1
+	return true;
+}
+
+bool ListDelete(sql &L, int i, int &e) // É¾³ı²Ù×÷
+{
+	if (i < 1 || i > L.len) // ÅĞ¶ÏiµÄ·¶Î§ÊÇ·ñÓĞĞ§
+		return false;
+	e = L.data[i - 1];				// ½«±»É¾³ıµÄÔªËØ¸³Öµ¸øe
+	for (int j = i; j < L.len; j++) // ½«µÚi¸öÎ»ÖÃºóµÄÔªËØÇ°ÒÆ
+		L.data[j - 1] = L.data[j];
+	L.len--; // ±í³¤¼õ1
+	return true;
+}
+
+int GetElem(sql L, int i) // °´Î»²éÕÒ²Ù×÷
+{
+	return L.data[i - 1];
+}
+
+int main()
+{
 	sql L;
 	InitList(L);
+	ListInsert(L, 1, 9);
+	ListInsert(L, 2, 8);
+	ListInsert(L, 3, 7);
+	int num;
+	ListDelete(L, 3, num);
+	cout << num << endl;
+	cout << GetElem(L, 2) << endl;
 	//...
-	return 0; 
+	return 0;
 }

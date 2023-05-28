@@ -78,7 +78,6 @@ if(GetElem(L, 2, e))
 	cout << e << endl;
 */
 
-
 int main()
 {
 	sql L;
