@@ -126,6 +126,79 @@ bool DeleteNode(LNode *p) // 删除p节点
     return true;
 }
 
+LNode *GetElem(LinkList L, int i) // 获取单链表的第i个节点
+{
+    if (i < 0)
+    { // i值不合法
+        return NULL;
+    }
+    LNode *p;  // 声明一个指向节点的指针
+    int j = 0; // 当前p指向的是第几个节点
+    p = L;     // 让p指向头节点，由于头节点是第0个节点，所以p指向第0个节点
+    while (p != NULL && j < i)
+    { // 寻找第i个节点
+        p = p->next;
+        j++;
+    }
+    return p;
+}
+
+LNode * LocateElem(LinkList L, int e) // 查找单链表中值为e的节点
+{
+    LNode *p = L->next; // 声明一个指向节点的指针，指向第1个节点
+    while (p != NULL && p->data != e)
+    { // 寻找值为e的节点
+        p = p->next;
+    }
+    return p;
+}
+
+int Length(LinkList L) // 获取单链表的长度
+{
+    int len = 0;        // 记录单链表的长度
+    LNode *p = L->next; // 声明一个指向节点的指针，指向第1个节点
+    while (p != NULL)
+    { // 遍历单链表，统计单链表的长度
+        len++;
+        p = p->next;
+    }
+    return len;
+}
+
+LinkList List_TailInsert(LinkList &L)//尾插法建立单链表
+{
+    int x;//x为链表中的元素
+    L = (LinkList)malloc(sizeof(LNode));//创建头结点
+    LNode *s,*r = L;//r为表尾指针
+    cin>>x;//输入结点的值
+    while(x != 9999){
+        s = (LNode *)malloc(sizeof(LNode));//创建新结点
+        s->data = x;//新结点赋值
+        r->next = s;//将表尾指针指向新结点
+        r = s;//将当前新结点定义为表尾指针
+        cin>>x;//输入结点的值
+    }
+    r->next = NULL;//将表尾指针指向空
+    return L;
+}
+
+LinkList List_HeadInsert(LinkList &L)//头插法建立单链表
+{
+    int x;//x为链表中的元素
+    L = (LinkList)malloc(sizeof(LNode));//创建头结点
+    LNode *s;//s为新结点
+    L->next = NULL;//将头结点指向空
+    cin>>x;//输入结点的值
+    while(x != 9999){
+        s = (LNode *)malloc(sizeof(LNode));//创建新结点
+        s->data = x;//新结点赋值
+        s->next = L->next;//将新结点插入到表头
+        L->next = s;//将头结点指向新结点
+        cin>>x;//输入结点的值
+    }
+    return L;
+}
+
 int main()
 {
     LinkList L;          // 声明一个指向节点的指针
