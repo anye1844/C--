@@ -1,24 +1,24 @@
-/* 从顺序表中删除具有最小值的元素（假设唯一），并由函数返回被删除元素的值。空出的位置由最后一个元素填补，若顺序表为空则显示出错信息并退出运行。 */
+/* ��˳�����ɾ��������Сֵ��Ԫ�أ�����Ψһ�������ɺ������ر�ɾ��Ԫ�ص�ֵ���ճ���λ�������һ��Ԫ�������˳���Ϊ������ʾ������Ϣ���˳����С� */
 
-/* 官方答案 */
+/* �ٷ��� */
 /*
 bool Del_Min(SqList &L, ElemType &value)
 {
-    // 删除顺序表中最小值元素结点，并通过引用型参数value返回其值
-    // 若删除成功，返回true，否则返回false
+    // ɾ��˳�������СֵԪ�ؽ�㣬��ͨ�������Ͳ���value������ֵ
+    // ��ɾ���ɹ�������true�����򷵻�false
     if (L.length == 0)
-        return false;                   // 顺序表为空，返回false
-    value = L.data[0];                  // 假设第一个元素最小
-    int pos = 0;                        // 记录最小元素位置
-    for (int i = 1; i < L.length; i++)  // 循环，查找最小元素
-        if (L.data[i] < value)          // 若当前元素更小
-            value = L.data[i], pos = i; // 更新最小值和位置
-    L.data[pos] = L.data[L.length - 1]; // 最后元素填补空位
-    L.length--;                         // 表长减1
-    return true;                        // 删除成功
+        return false;                   // ˳���Ϊ�գ�����false
+    value = L.data[0];                  // �����һ��Ԫ����С
+    int pos = 0;                        // ��¼��СԪ��λ��
+    for (int i = 1; i < L.length; i++)  // ѭ����������СԪ��
+        if (L.data[i] < value)          // ����ǰԪ�ظ�С
+            value = L.data[i], pos = i; // ������Сֵ��λ��
+    L.data[pos] = L.data[L.length - 1]; // ���Ԫ�����λ
+    L.length--;                         // ������1
+    return true;                        // ɾ���ɹ�
 } */
 
-/* 个人答案 */
+/* ���˴� */
 /* bool DelListMin(SqList &L, int &Del)
 {
     if (L.len == 0)
